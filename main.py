@@ -32,21 +32,30 @@ class ClusterWords(object):
         return links
 
     # Turn links into postings
-    def get_SO_postings_make_dict(self):
-        all_info = {}
+    def get_SO_postings_make_df(self):
         links = self.get_links_from_SO()
+        titles_for_df = []
+        links_for_df = []
+        descriptions_for_df = []
         for link in links:
             r = requests.get(link)
             soup = BeautifulSoup(r.text, "html.parser")
-            all_info[link] = ''.join([p.get_text(strip=True) for p in soup.find_all("div", "description")])
-        all_info.update((x, str(re.sub('[^\w\s]+', '', y))) for x, y in all_info.items())
-        return all_info
+            key = str(soup.title)[7:-34].replace('.', '')
+            first_clean_content = ''.join([p.get_text(strip=True) for p in soup.find_all("div", "description")])
+            clean_again = str(re.sub('[^\w\s]+', '', first_clean_content))[15:]
+            description_dict = {'description': clean_again}
+            titles_for_df.append(key)
+            links_for_df.append(link)
+            descriptions_for_df.append(clean_again)
+            df = pd.DataFrame({'titles': titles_for_df, 'links': links_for_df, 'descriptions': descriptions_for_df})
+            df.to_csv('data/SOpostings.csv', index=False)
+        return df
 
     # Vectorize words
-    def vectorize(self): 
-        data = self.get_SO_postings_make_dict()
-        vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'), ngram_range=(1,2))
-        vector_matrix = vectorizer.fit_transform(data)
+    def vectorize(self):
+        data = self.get_SO_postings_make_df()
+        vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'), ngram_range=(1,2,3))
+        vector_matrix = vectorizer.fit_transform(data['descriptions'])
         return vectorizer, vector_matrix
 
     # Init kmeans
