@@ -4,6 +4,7 @@ import numpy as np
 import pickle
 import ipdb
 from scipy import spatial
+import re
 
 app = Flask(__name__)
  
@@ -23,19 +24,17 @@ def index():
 # create the page the form goes to
 @app.route('/classifier', methods=['POST'] )
 def classifier():
-    # get data from request form, the key is the name you set in your form
-    data = request.form['user_input'].encode('utf-8')
+    # get data from request form, encode unicode and lose punctuation
+    data = re.sub('[^\w\s]+', '', request.form['user_input']).encode('utf-8')
     vectorize_data = fit_vectorizer.transform([data])
-    # guess = fit_model.predict(vectorize_data)
-    # ipdb.set_trace()
+
     cos = []
     transformed = vectorize_data.T.toarray()
     vec_array = vector_matrix.toarray()
     for x in range(vec_array.shape[0]):
         cos.append(spatial.distance.cosine(vec_array[x,:], transformed))
-    # for x in np.array(cos).argsort()[:10]:
-    #     df.links[x]
-    x = np.array(cos).argsort()[:10]
+
+    x = np.array(cos).argsort()[:20]
     returner_df = df.ix[x,:]
     data = returner_df.values
 

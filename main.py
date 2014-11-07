@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 from HTMLParser import HTMLParser
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 from collections import defaultdict
 from nltk.corpus import stopwords
 import re
+import ipdb
 
 # Get all links from StackOverflow
 class ClusterWords(object):
@@ -23,15 +25,14 @@ class ClusterWords(object):
         for i in range(1,40):
             base = 'http://careers.stackoverflow.com/jobs/tag/{0}?pg={1}'.format(query,i)
             r = requests.get(base)
-            soup = BeautifulSoup(r.text, "html.parser") 
-            # print soup
+            soup = BeautifulSoup(r.text, "html.parser")
             name = soup.find_all('h3', class_ = '-title')
             verybase = 'http://careers.stackoverflow.com'
             for a in name:
                 links.append(verybase + str(a).split('href')[1].split()[0][1:].strip('"'))
         return links
 
-    # Turn links into postings
+    # Turn links into df
     def get_SO_postings_make_df(self):
         links = self.get_links_from_SO()
         titles_for_df = []
@@ -54,8 +55,11 @@ class ClusterWords(object):
     # Vectorize words
     def vectorize(self):
         data = self.get_SO_postings_make_df()
-        vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'), ngram_range=(1,2,3))
-        vector_matrix = vectorizer.fit_transform(data['descriptions'])
+        vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'), ngram_range=(1,3))
+        descriptions = list(data['descriptions'].values)
+        vector_matrix = vectorizer.fit_transform(descriptions)
+        pickle.dump(vectorizer, open('data/fitted_vectorizer.pkl', 'wb'))
+        pickle.dump(vector_matrix, open('data/vector_matrix.pkl', 'wb'))
         return vectorizer, vector_matrix
 
     # Init kmeans
@@ -63,6 +67,7 @@ class ClusterWords(object):
         vec, vector_matrix = self.vectorize()
         km = KMeans(self.n_clusters)
         km.fit(vector_matrix)
+        pickle.dump(km, open('data/fitted_model.pkl', 'wb'))
         return km
 
     # Find words that most describe clusters
