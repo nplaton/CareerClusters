@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request, render_template
 import pandas as pd
 import numpy as np
 import pickle
@@ -16,13 +15,7 @@ df = pd.read_csv('data/SOpostings.csv')
 # home page
 @app.route('/')
 def index():
-    return '''
-    <h1> Would you like a job? </h1>
-    <h2> Enter some text, either your resume, description of a job you'd like, or any keywords </h2>
-    <form action="/classifier" method='POST' >
-        <input type="text" name="user_input" />
-        <input type="submit" />
-    </form> '''
+    return render_template('homepage.html')
 
 # My classifier app
 #==============================================
@@ -31,7 +24,7 @@ def index():
 @app.route('/classifier', methods=['POST'] )
 def classifier():
     # get data from request form, the key is the name you set in your form
-    data = str(request.form['user_input'])
+    data = request.form['user_input'].encode('utf-8')
     vectorize_data = fit_vectorizer.transform([data])
     # guess = fit_model.predict(vectorize_data)
     # ipdb.set_trace()
@@ -42,13 +35,15 @@ def classifier():
         cos.append(spatial.distance.cosine(vec_array[x,:], transformed))
     # for x in np.array(cos).argsort()[:10]:
     #     df.links[x]
-    x = np.array(cos).argsort()[0]
+    x = np.array(cos).argsort()[:10]
+    returner_df = df.ix[x,:]
+    data = returner_df.values
 
-
-    returner = ''' Top job for you: <br> <a href="%s" target="_blank"> %s </a>  <br> <a href="/"> Back to home page </a>''' 
+    # returner = ''' Top job for you: <br> <a href="%s" target="_blank"> %s </a>''' 
+    # returner = returner_df.to_html()
     
     # now return your results 
-    return  returner % (df.links[x], df.titles[x])
+    return  render_template('index.html', data=data)
 
 # fit_model.close()
 # fit_vectorizer.close()
