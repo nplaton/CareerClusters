@@ -12,10 +12,9 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 <style>
-#homepage_text {margin:2%;}
+#jobs_table {margin:2%;}
 </style>
-
-    <title> CareerClusters </title>
+    <title> Job postings </title>
 </head>
 <body>
 <div class="navbar navbar-inverse" role="navigation">
@@ -27,7 +26,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> CareerClusters </a>
+            <a class="navbar-brand" href="/">CareerClusters</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -37,14 +36,25 @@
 </div>
 
 
-<div id='homepage_text'>
- <h1> Would you like a job? </h1>
-    <h2> Enter your resume or any keywords </h2>
-    <form action="/classifier" method='POST' >
-        <input type="text" name="user_input" />
-        <input type="submit" />
-    </form> 
+{% block content %}
+<div>
+<table class="table table-hover" id='jobs_table'>
+        <thead>
+            <tr>
+                <th> Job title </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for description, link, title in data %}
+            <tr>
+                <td> <a href= {{ link }} target='_blank'> {{ title.decode('utf-8') }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+                                   
+{% endblock %}
 
 </body>
 </html>

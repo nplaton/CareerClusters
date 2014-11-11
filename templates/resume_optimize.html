@@ -12,10 +12,17 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 <style>
-#homepage_text {margin:2%;}
+#mainContent {
+	text-align:center;
+}
+#leftCol {
+	display:inline-block;
+}
+#rightCol {
+	display:inline-block
+}
 </style>
-
-    <title> CareerClusters </title>
+    <title> Job postings </title>
 </head>
 <body>
 <div class="navbar navbar-inverse" role="navigation">
@@ -27,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> CareerClusters </a>
+            <a class="navbar-brand" href="/">CareerClusters</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -36,15 +43,30 @@
     </div>
 </div>
 
+<form name="form" method="post" action="Resume"> 
+			<div id="mainContent">
+				<h2> Optimize Your Resume </h2>
 
-<div id='homepage_text'>
- <h1> Would you like a job? </h1>
-    <h2> Enter your resume or any keywords </h2>
-    <form action="/classifier" method='POST' >
-        <input type="text" name="user_input" />
-        <input type="submit" />
-    </form> 
-</div>
+				<div id="leftCol">
+					<h3> Paste Resume </h3>
+					<textarea id="cv" class="textarea" name="cv" rows="30" cols="50" placeholder="Resume" tabindex="1">
+					</textarea>
+
+				</div>
+				
+				<div id="rightCol">
+					<h3> Paste Job Description </h3>
+					<textarea id="jd" class="textarea" name="jd" rows="30" cols="50" placeholder="Skills section of job description" tabindex="2"></textarea></div>
+			<p>
+			</p>
+			<div id="analyze">
+				<button type="submit" id="btnAnalyze" class="button" tabindex="3"> Analyze </button>
+				<br> 
+			</div> 
+		</div>
+	</div>
+			
+	
 
 </body>
 </html>
