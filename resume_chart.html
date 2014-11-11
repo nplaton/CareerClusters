@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="../../../../nv.d3.css" rel="stylesheet" />
+        <script src="../../../../d3.v3.min.js"></script>
+        <script src="../../../../nv.d3.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <style>
+        #optimize_your_resume {text-align:center;}
+        </style>
+
+    <title> Resume Optimizer id='resume_title'</title>
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CareerClusters</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>
+    </div>
+</div>        
+    
+
+
+<div id="optimize_your_resume"> <h2> Optimize Your Resume </h2> <svg style="height:350px;"></svg></div>
+
+    <script>
+
+        datum = [{'key': 'Job Posting',
+  'values': [{'x': 'python', 'y': 3},
+   {'x': 'web', 'y': 2},
+   {'x': 'front', 'y': 1},
+   {'x': 'end', 'y': 1},
+   {'x': 'sql', 'y': 2}],
+  'yAxis': '1'},
+ {'key': 'Your Resume',
+  'values': [{'x': 'python', 'y': 1},
+   {'x': 'web', 'y': 1},
+   {'x': 'sql', 'y': 0},
+   {'x': 'end', 'y': 0},
+   {'x': 'front', 'y': 1}],
+  'yAxis': '1'}];
+
+   var dset = d3.set();
+
+   for(var i = 0; i < datum.length; i++) {
+        for(var j = 0; j < datum[i].values.length; j++) {
+            dset.add(datum[i].values[j].y);
+        }
+   }
+
+
+   var uniques = dset.values()
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarHorizontalChart()
+        .x(function(d) { return d.x })
+        .y(function(d) { return d.y })
+        .margin({top: 30, right: 20, bottom: 50, left: 175})
+        // .showValues(true)           //Show bar value next to each bar.
+        .tooltips(true)             //Show tooltips on hover.
+        .transitionDuration(350)
+        .showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
+
+    chart.yAxis
+        .tickValues(uniques.sort());
+
+    d3.select('#optimize_your_resume svg')
+        .datum(datum)
+        .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+    </script>
+
+    </body>
+</html>
