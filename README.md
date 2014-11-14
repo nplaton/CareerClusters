@@ -1,7 +1,7 @@
 # CareerClusters
 
 #### Motivation
-Like many of the products I find useful, CareerClusters was built to address a need of its creator. The Data Science job search is filled with ambiguity, from what "Data Science" really means, to which skills are truly valuable for any given job. This product aims to clarify the different categories of careers that are available while also simplifying the job search itself. 
+Like many of the products I find useful, CareerClusters was built to address a need of its creator. The Data Science job search is filled with ambiguity, from what "Data Science" really means, to which skills are truly valuable for any given job. This product aims to clarify the different categories of careers that are available while also simplifying the job search itself. **In short, CareerClusters was built to simply and improve the process of getting a Data Science job**
 
 #### Designing the Product
 Each element of a product should aid in accomplishing the true goals of the user. Discovering latent features within a career field may be interesting (to some), but is not inherently valuable. Throughout the evolution of the product three questions emerged as the most important to answer to create something valuable:
