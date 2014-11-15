@@ -11,7 +11,11 @@ from nltk.corpus import stopwords
 import re
 import ipdb
 
-# Get all links from StackOverflow
+'''This file is meant to be run each night to scrape job postings from multiple sites and convert 
+them into a format CareerClusters can use. The format of the file will remain the same for any 
+number of job sources, but each site has unique html elements that need to be encoded in the
+functions below'''
+
 class ClusterWords(object):
 
     def __init__(self, query, n_words, n_clusters=7):
@@ -19,6 +23,7 @@ class ClusterWords(object):
         self.n_words = n_words
         self.n_clusters = n_clusters        
 
+    # Get links from Stack Overflow Careers
     def get_links_from_SO(self):
         links = []
         query = self.change(self.query)
@@ -32,11 +37,10 @@ class ClusterWords(object):
                 links.append(verybase + str(a).split('href')[1].split()[0][1:].strip('"'))
         return links
 
-    # Turn links into df
+    # Turn SO links into df
     def get_SO_postings_make_df(self):
         links = self.get_links_from_SO()
         titles_for_df = []
-        links_for_df = []
         descriptions_for_df = []
         for link in links:
             r = requests.get(link)
@@ -44,17 +48,59 @@ class ClusterWords(object):
             key = str(soup.title)[7:-34].replace('.', '')
             first_clean_content = ''.join([p.get_text(strip=True) for p in soup.find_all("div", "description")])
             clean_again = str(re.sub('[^\w\s]+', '', first_clean_content))[15:]
-            description_dict = {'description': clean_again}
             titles_for_df.append(key)
-            links_for_df.append(link)
             descriptions_for_df.append(clean_again)
-            df = pd.DataFrame({'titles': titles_for_df, 'links': links_for_df, 'descriptions': descriptions_for_df})
-            df.to_csv('data/SOpostings.csv', index=False)
+        df = pd.DataFrame({'titles': titles_for_df, 'links': links, 'descriptions': descriptions_for_df})
         return df
+
+    #Get links from indeed.com
+    def get_links_from_indeed(self):
+        links = []
+        query = 'data+scientist'
+        verybase = 'http://www.indeed.com/viewjob?jk='
+        for i in range(20):
+            base = 'http://www.indeed.com/jobs?q={0}&l=San+Francisco%2C+CA&start={1}'.format(query,i*10)
+            r = requests.get(base)
+            soup = BeautifulSoup(r.text, "html.parser")
+            name = soup.find_all('h2', class_ = 'jobtitle')
+            for x in name:
+                parts = str(x).split('jk=')
+                if len(parts) > 1:
+                    links.append(''.join(verybase + parts[1].split('"')[0]))
+        return links
+
+    # Turn Indeed links into df
+    def get_indeed_postings_make_df(self):
+        titles_for_df = []
+        links_for_df = self.get_links_from_indeed()
+        descriptions_for_df = []
+        for link in links_for_df:
+            r = requests.get(link)
+            soup = BeautifulSoup(r.text, "html.parser")
+            titles_for_df.append(soup.title.string[:-13])
+            for td in soup.find_all('td', attrs={'class':'snip'}):
+                cleaned = str(re.sub('[^\w\s]+', '', td.text)).replace('\n', '')
+                descriptions_for_df.append(cleaned)
+        df_indeed = pd.DataFrame({'titles': titles_for_df, 'links': links_for_df, 'descriptions': descriptions_for_df})
+        df_indeed.descriptions = [x.encode('utf-8') for x in df_indeed.descriptions]
+        df_indeed.titles = [x.encode('utf-8') for x in df_indeed.titles]
+        df_indeed.links = [x.encode('utf-8') for x in df_indeed.descriptions]
+        return df_indeed
+
+    # Make df of postings from all sources and write to file
+    def make_final_df(self):
+        df_SO = self.get_SO_postings_make_df()
+        df_indeed = self.get_indeed_postings_make_df()
+        big_df = pd.concat((df_SO, df_indeed))
+        big_df['dropped'] = [len(x) > 100 for x in big_df['descriptions']]
+        big_df = big_df[big_df.dropped == 1] #If posting too short, drop row
+        big_df = big_df[[x for x in big_df.columns if x != 'dropped']]
+        big_df.to_csv('data/SOpostings.csv', index=False)
+        return big_df 
 
     # Vectorize words
     def vectorize(self):
-        data = self.get_SO_postings_make_df()
+        data = self.make_final_df()
         vectorizer = TfidfVectorizer(stop_words=stopwords.words('english'), ngram_range=(1,3))
         descriptions = list(data['descriptions'].values)
         vector_matrix = vectorizer.fit_transform(descriptions)
@@ -94,4 +140,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
