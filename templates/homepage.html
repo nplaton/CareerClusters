@@ -12,7 +12,13 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 <style>
-#homepage_text {margin:2%;}
+#homepage_text {
+    margin:2%;
+}
+#page_title {
+    /*font-size: 50px;
+    color: #428bca;*/
+}
 </style>
 
     <title> CareerClusters </title>
@@ -27,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> CareerClusters </a>
+            <a class="navbar-brand" href="/" id='page_title'> CareerClusters </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -38,8 +44,9 @@
 
 
 <div id='homepage_text'>
- <h1> Would you like a job? </h1>
-    <h2> Enter your resume or any keywords </h2>
+ <!-- <h1> Would you like a job? </h1> -->
+    <h2> Enter keywords to find relevant jobs </h2>
+    
     <form action="/classifier" method='POST' >
 
         <input type="text" class="textarea" name="user_input" />
@@ -47,6 +54,8 @@
     </form> 
 
     <a href="/optimize_resume"> Optimize your Resume! </a>
+    <br>
+    <a href="/visualize_clusters"> Visualize New Clusters! </a>
 </div>
 
 </body>
