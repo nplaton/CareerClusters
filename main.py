@@ -18,7 +18,7 @@ functions below'''
 
 class ClusterWords(object):
 
-    def __init__(self, query, n_words, n_clusters=7):
+    def __init__(self, query, n_words=4, n_clusters=9):
         self.query = query
         self.n_words = n_words
         self.n_clusters = n_clusters        
@@ -125,7 +125,7 @@ class ClusterWords(object):
             indices = np.argsort(km.cluster_centers_[i])[::-1][:self.n_words]
             for q in indices:
                 descriptive_words[i].append(v.get_feature_names()[q])
-        return descriptive_words.values()
+        pickle.dump(descriptive_words.values(), open('data/cluster_words.pkl', 'wb'))
 
     # Helper to format strings for scraping
     def change(self, string):
@@ -135,7 +135,7 @@ class ClusterWords(object):
 
 def main():
     query = 'Data Scientist'
-    cw = ClusterWords(query, 2)
+    cw = ClusterWords(query, 4)
     print cw.get_descriptive_words()
 
 if __name__ == '__main__':
