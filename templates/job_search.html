@@ -12,14 +12,8 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 <style>
-#mainContent {
-	text-align:center;
-}
-#leftCol {
-	display:inline-block;
-}
-#rightCol {
-	display:inline-block
+#homepage_text {
+    margin:2%;
 }
 
 #nav {
@@ -30,7 +24,8 @@ left: 2%;
 }
 
 </style>
-    <title> Job postings </title>
+
+    <title> CareerClusters </title>
 </head>
 <body>
 <div class="navbar navbar-inverse" role="navigation">
@@ -42,7 +37,7 @@ left: 2%;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"  id="nav" href="/"> CareerClusters </a>
+            <a class="navbar-brand" id ="nav" href="/" id='page_title'> CareerClusters </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -51,29 +46,21 @@ left: 2%;
     </div>
 </div>
 
-<form name="form" method="post" action="/improve_resume"> 
-			<div id="mainContent">
-				<h2> Improve Your Resume </h2>
 
-				<div id="leftCol">
-					<h3> Resume </h3>
-					<textarea id="cv" class="textarea" name="cv" rows="30" cols="50" placeholder="Resume" tabindex="1"></textarea>
+<div id='homepage_text'>
+ <!-- <h1> Would you like a job? </h1> -->
+    <h2> Enter keywords to find relevant jobs </h2>
 
-				</div>
-				
-				<div id="rightCol">
-					<h3> Job Posting </h3>
-					<textarea id="jd" class="textarea" name="jd" rows="30" cols="50" placeholder="Skills section of job description" tabindex="2"></textarea></div>
-			<p>
-			</p>
-			<div id="analyze">
-				<button type="submit" id="btnAnalyze" class="button" tabindex="3"> Compare </button>
-				<br> 
-			</div> 
-		</div>
-	</div>
-			
-	
+    <form action="/classifier" method='POST' >
+
+        <input type="text" class="textarea" name="user_input" />
+        <input type="submit" />
+    </form> 
+
+    <a href="/optimize_resume"> Optimize your Resume! </a>
+    <br>
+    <a href="/visualize_clusters"> Visualize New Clusters! </a>
+</div>
 
 </body>
 </html>

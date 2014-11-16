@@ -25,8 +25,10 @@ df = pd.read_csv('data/SOpostings.csv')
 def index():
     return render_template('homepage.html')
 
-# My classifier app
-#==============================================
+# home page
+@app.route('/job_search')
+def job_search():
+    return render_template('job_search.html')
 
 # create the page the form goes to
 @app.route('/classifier', methods=['POST'] )
