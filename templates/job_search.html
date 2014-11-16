@@ -1,19 +1,31 @@
-<html>
-<head>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="../../nv.d3.css" rel="stylesheet" />
+        <script src="../../d3.v3.min.js"></script>
+        <script src="../../nv.d3.js"></script>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
 
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-<style>
-#homepage_text {
-    margin:2%;
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <style>
+        * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#navcon {
+margin-bottom: 0px;
 }
 
 #nav {
@@ -23,12 +35,116 @@ position: absolute;
 left: 2%;
 }
 
-</style>
+#viz_clusters {
+color:#000;
+font-size:35px;
+}
 
-    <title> CareerClusters </title>
-</head>
-<body>
-<div class="navbar navbar-inverse" role="navigation">
+html, body {
+    height: 100%;
+    width: 100%;
+    color:white;
+    font-size:35px;
+    padding:0%;
+}
+
+a {
+    color:white;
+    font-size:35px;
+}
+
+#grid_div {
+    width: 34%;
+    height: 33%;
+    float: left;
+}
+
+#grid_div1 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#c0392b;
+}
+
+#grid_div2 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#b84032;
+}
+
+#grid_div3 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#b14539;
+}
+
+#grid_div4 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#aa4b41;
+}
+
+#grid_div5 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#a35148;
+}
+
+#grid_div6 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#9c564f;
+}
+
+#grid_div7 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#955c56;
+}
+
+#grid_div8 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#8e625d;
+}
+
+#grid_div9 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#876764;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #fff;
+}
+        </style>
+
+    <title> Find jobs </title>
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-inverse" id = 'navcon' role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,30 +153,47 @@ left: 2%;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" id ="nav" href="/" id='page_title'> CareerClusters </a>
+            <a class="navbar-brand" id="nav" href="/">CareerClusters</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
             </ul>
         </div>
     </div>
+</div>      
+
+<div id="grid_div1">
+    <div style='margin-left:6%; margin-top:4%; line-height:95%' > 
+        Enter your resume or some keywords below to find relevant jobs 
+
+    </div>
+</div>
+<div id="grid_div2">
+</div>
+<div id="grid_div3">
+</div>
+
+<div id="grid_div4">
+
+<form action="/classifier" method='POST' >
+
+        <textarea type="text" class="textarea" name="user_input" rows="2" cols="18"
+            style="color:#000; background-color:#aa4b41; border:none; padding: 4% line-height:90%"
+         placeholder=" Paste text here" placeholder-text-color:black tabindex="1"></textarea> 
+         <input type="submit" style="background-color:#876764; border:none"/>
+    </form>  
+
+</div>
+<div id="grid_div5">
+</div>
+<div id="grid_div6">
+</div>
+<div id="grid_div7">
+</div>
+<div id="grid_div8">
+</div>
+<div id="grid_div9">
 </div>
 
 
-<div id='homepage_text'>
- <!-- <h1> Would you like a job? </h1> -->
-    <h2> Enter keywords to find relevant jobs </h2>
 
-    <form action="/classifier" method='POST' >
-
-        <input type="text" class="textarea" name="user_input" />
-        <input type="submit" />
-    </form> 
-
-    <a href="/optimize_resume"> Optimize your Resume! </a>
-    <br>
-    <a href="/visualize_clusters"> Visualize New Clusters! </a>
-</div>
-
-</body>
-</html>
