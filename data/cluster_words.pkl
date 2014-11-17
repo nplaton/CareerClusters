@@ -1,71 +1,76 @@
 (lp0
 (lp1
-Vbloomberg
+Vrealtime smrt
 p2
-aVnews
+aVestimatesresponsible full development
 p3
-aVbloomberg professional
+aVrealtime pipeline processing
 p4
-aVprofessional service
+aVcool excited
 p5
 aa(lp6
-Vsoftware
+Vdat er een
 p7
-aVdata
+aVexperience associates degree
 p8
-aVexperience
+aVteam designs develops
 p9
-aVdevelopment
+aVdevelopment applied
 p10
 aa(lp11
-Vdays
+Vsoftware development encouraged
 p12
-aVvar
-p13
 ag8
-aVago
-p14
-aa(lp15
-g8
+ag7
 ag10
-ag7
-ag9
-aa(lp16
-g8
-aVsan
-p17
+aa(lp13
+Vtesting able handle
+p14
 ag12
-aVfrancisco
-p18
-aa(lp19
-g7
-aVaround
-p20
-aVteam
-p21
-aVworld
-p22
-aa(lp23
-g21
-aVwork
-p24
 ag9
-aVnew
-p25
-aa(lp26
-Vcoolblue
+ag10
+aa(lp15
+Vdays agointern vrdma
+p16
+aVagile teams
+p17
+aVdays agoinvestigative
+p18
+aVsatisfied things way
+p19
+aa(lp20
+Vblog posts
+p21
+aVnice views
+p22
+aVblogs
+p23
+aVprofilemigrating storage layer
+p24
+aa(lp25
+Vhealth workers
+p26
+aVcard exchange
 p27
-aVrotterdam
+aVhear youproviding feedback
 p28
-aVlast
-p29
-aVshops
+ag9
+aa(lp29
+Vcamunda jbpm
 p30
-aa(lp31
-Vhealth
+aVresearch technology
+p31
+aVone brings
 p32
-ag24
-aVweb
+aVcanada nous
 p33
-ag7
+aa(lp34
+Vvendor progress technical
+p35
+aVwant hear youyou
+p36
+aVotherssubjective criteriaexcellent communication
+p37
+aVideal candidate solid
+p38
 aa.

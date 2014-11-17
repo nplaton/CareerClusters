@@ -2,9 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <!-- <link href="static/nv.d3.css" rel="stylesheet" />
-        <script src="static/d3.v3.min.js"></script>
-        <script src="static/nv.d3.js"></script>  -->
+       <!--  <link href="../../nv.d3.css" rel="stylesheet" />
+        <script src="../../d3.v3.min.js"></script>
+        <script src="../../nv.d3.js"></script>  -->
 
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -23,6 +23,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 #navcon {
 margin-bottom: 0px;
 }
@@ -67,74 +68,88 @@ a {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#16a085;
+    background-color:#c0392b;
 }
 
 #grid_div2 {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#2ecc71;
+    background-color:#b84032;
 }
 
 #grid_div3 {
     width: 34%;
     height: 33%;
     float: left;
-    background-color:#2980b9;
+    background-color:#b14539;
 }
 
 #grid_div4 {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#f1c40f;
+    background-color:#aa4b41;
 }
 
 #grid_div5 {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#e67e22;
+    background-color:#a35148;
 }
 
 #grid_div6 {
     width: 34%;
     height: 33%;
     float: left;
-    background-color:#e74c3c;
+    background-color:#9c564f;
 }
 
 #grid_div7 {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#f39c12;
+    background-color:#955c56;
 }
 
 #grid_div8 {
     width: 33%;
     height: 33%;
     float: left;
-    background-color:#d35400;
+    background-color:#8e625d;
 }
 
 #grid_div9 {
     width: 34%;
     height: 33%;
     float: left;
-    background-color:#c0392b;
+    background-color:#876764;
 }
 
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #fff;
+}
         </style>
 
-    <title> Today's Clusters</title>
+    <title> Find jobs </title>
 
     </head>
 
     <body>
 
-<div class="navbar navbar-inverse" id= "navcon" role="navigation">
+<div class="navbar navbar-inverse" id = 'navcon' role="navigation">
     <div class="container">
         <a class="navbar-brand" id="rightheader" href="/about"> How it works</a>
         <div class="navbar-header">
@@ -148,21 +163,45 @@ a {
     </div>
 </div>      
 
-{% block content %}
-            
-            {% for cluster in data %}
-            
-                <div id="grid_div{{loop.index}}">
-                
-                <form action="/classifier" method='POST' >
+<div id="grid_div1">
+    <div style='padding:6%; line-height:95%' > 
+        Enter your resume or some keywords below to find relevant jobs 
 
-                    <input type="submit" name="user_input" style="font-size: 35px; color: white; color: white; background-color: transparent; border-color: transparent; white-space: normal; text-align:left; line-height: 90%; padding:6%; " value = "{{ ' '.join(cluster) }}" >
+    </div>
+</div>
 
-                </form> 
-                </div>
-            {% endfor %}
+<div id="grid_div2">
+</div>
 
-                                   
-{% endblock %}
+<div id="grid_div3">
+</div>
+
+<div id="grid_div4" style='padding:2%'>
+
+<form action="/classifier" method='POST' >
+
+        <textarea type="text" class="textarea" name="user_input" rows="2" cols="18"
+            style="color:#000; background-color:#aa4b41; border:none; line-height:90%;"
+         placeholder="Paste text here" placeholder-text-color:black tabindex="1"></textarea> 
+         <input type="submit" style="background-color:#876764; border:none" tabindex="2"/>
+    </form>  
+
+</div>
+
+<div id="grid_div5">
+</div>
+
+<div id="grid_div6">
+</div>
+
+<div id="grid_div7">
+</div>
+
+<div id="grid_div8">
+</div>
+
+<div id="grid_div9">
+</div>
+
 
 

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+       <!--  <link href="../../nv.d3.css" rel="stylesheet" />
+        <script src="../../d3.v3.min.js"></script>
+        <script src="../../nv.d3.js"></script>  -->
+
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <style>
+        * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#navcon {
+margin-bottom: 0px;
+}
+
+#nav {
+color:#F0F0F0;
+font-size:40px;
+position: absolute;
+left: 2%;
+}
+
+#viz_clusters {
+color:#000;
+font-size:35px;
+line-height: 95%;
+}
+
+#rightheader {
+    float:right;
+    color:white;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    color:white;
+    font-size:35px;
+    padding:0%;
+}
+
+a {
+    color:white;
+    font-size:35px;
+}
+
+a:hover {
+    color:black;
+}
+
+#grid_div {
+    width: 34%;
+    height: 33%;
+    float: left;
+}
+
+#grid_div1 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#8e44ad;
+}
+
+#grid_div2 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#8b48a8;
+}
+
+#grid_div3 {
+    width: 34%;
+    height: 33%;
+    float: left;
+    background-color:#894da3;
+}
+
+#grid_div4 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#87519e;
+}
+
+#grid_div5 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#855699;
+}
+
+#grid_div6 {
+    width: 34%;
+    height: 33%;
+    float: left;
+    background-color:#835b95;
+}
+
+#grid_div7 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#816090;
+}
+
+#grid_div8 {
+    width: 33%;
+    height: 33%;
+    float: left;
+    background-color:#80658b;
+}
+
+#grid_div9 {
+    width: 34%;
+    height: 33%;
+    float: left;
+    background-color:#7e6986;
+}
+
+        </style>
+
+    <title> About </title>
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-inverse" id = 'navcon' role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" id="nav" href="/">CareerClusters</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>
+    </div>
+</div>      
+
+
+<a href="/visualize_clusters">
+<div id="grid_div1">
+        
+    <div style='margin-left:6%; line-height: 95%; padding-top:6%; font-size:30px;' > 
+        How to cluster job postings
+    </div>
+</div>
+</a>
+
+
+<div id="grid_div2" style='text-align:center; padding:2%;'>
+>>>>>   
+</div>
+
+<div id="grid_div3">
+    <div style='font-size:.5em; line-height: 110%; padding:6%; text-align:right; ' > 
+        Each day, CareerClusters scrapes sites like Indeed, GlassDoor, and StackOverflow Careers to find active job Postings. The text from these posts are clustered using the k-means clustering algorithm to find which kinds of data science jobs are being advertised on the web. Click on a topic to start a search or enter your own resume for a custom search.  
+    </div>
+</div>
+
+<a href="/job_search">
+<div id="grid_div4">
+    <div style='margin-left:6%; line-height: 95%; padding-top:6%; font-size:30px;' > 
+        How to match a resume to the best jobs
+    </div>
+</div>
+</a>
+
+<div id="grid_div5" style='text-align:center; padding:2%;'>
+>>>      
+</div>
+
+<div id="grid_div6">
+    <div style='font-size:.5em; line-height: 110%; padding:6%; text-align:right; ' > 
+        To allow users to enter any keywords or an entire resume, we needed a custom search engine. It works by vectorizing your search with tf-idf (the same way we vectorize the job postings), and comparing all vectors to your search using cosine similarity. This tool is a great way to find jobs you might have missed from all over the web.    
+    </div>
+</div>
+
+<a href="/optimize_resume">
+<div id="grid_div7">
+    <div style='margin-left:6%; line-height: 95%; padding-top:6%; font-size:30px;' > 
+        How to optimize your resume 
+    </div>
+</div>
+</a>
+
+<div id="grid_div8" style='text-align:center; padding:2%;'>
+>    
+</div>
+<div id="grid_div9">
+    <div style='font-size:.5em; line-height: 110%; padding:6%; text-align:right; ' > 
+        The resume optimizer compares the text in your resume with the requirements listed in a given job posting. Many companies parse incoming applications algorithmically before they even give them a chance. Use this tool to make sure your resume beats the computer and reaches a human. 
+    </div>
+</div>
+
+

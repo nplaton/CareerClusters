@@ -17,16 +17,22 @@ app = Flask(__name__)
 fit_model = pickle.load(open( 'data/fitted_model.pkl', 'rb' ))
 fit_vectorizer = pickle.load(open( 'data/fitted_vectorizer.pkl', 'rb' ))
 vector_matrix = pickle.load(open( 'data/vector_matrix.pkl', 'rb' ))
-cluster_words = pickle.load(open( 'data/cluster_words.pkl', 'rb' ))
+# cluster_words = pickle.load(open( 'data/cluster_words.pkl', 'rb' ))
 df = pd.read_csv('data/SOpostings.csv')
+cluster_words = []
+with open('data/cluster_words.txt', 'r') as words:
+    for x in words.readlines(): 
+        cluster_words.append(x.split(' '))
 
 # home page
 @app.route('/')
 def index():
     return render_template('homepage.html')
 
-# My classifier app
-#==============================================
+# home page
+@app.route('/job_search')
+def job_search():
+    return render_template('job_search.html')
 
 # create the page the form goes to
 @app.route('/classifier', methods=['POST'] )
@@ -41,7 +47,7 @@ def classifier():
     vec_array = matrix_normalized.toarray()
     for x in range(vec_array.shape[0]):
         cos.append(spatial.distance.cosine(vec_array[x,:], transformed))
-    x = np.array(cos).argsort()[:20]
+    x = np.array(cos).argsort()[:30]
     returner_df = df.ix[x,:]
     data = returner_df.values
     
@@ -63,6 +69,10 @@ def improve_resume():
 @app.route('/visualize_clusters')
 def get_clusters():
     return render_template('clusters.html', data=cluster_words)
+
+@app.route('/about')
+def get_about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6969, debug=True)

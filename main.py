@@ -84,7 +84,7 @@ class ClusterWords(object):
         df_indeed = pd.DataFrame({'titles': titles_for_df, 'links': links_for_df, 'descriptions': descriptions_for_df})
         df_indeed.descriptions = [x.encode('utf-8') for x in df_indeed.descriptions]
         df_indeed.titles = [x.encode('utf-8') for x in df_indeed.titles]
-        df_indeed.links = [x.encode('utf-8') for x in df_indeed.descriptions]
+        df_indeed.links = [x.encode('utf-8') for x in df_indeed.links]
         return df_indeed
 
     # Make df of postings from all sources and write to file
@@ -126,6 +126,7 @@ class ClusterWords(object):
             for q in indices:
                 descriptive_words[i].append(v.get_feature_names()[q])
         pickle.dump(descriptive_words.values(), open('data/cluster_words.pkl', 'wb'))
+        return descriptive_words.values()
 
     # Helper to format strings for scraping
     def change(self, string):
@@ -140,4 +141,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
