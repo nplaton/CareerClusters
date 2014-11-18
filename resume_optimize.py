@@ -2,7 +2,7 @@ from string import punctuation
 from collections import Counter
 
 all_skills = ["python", "scikit-learn", "scipy", "sympy", "nltk", "pymc", "pandas", "numpy", "beautifulsoup",
- "matlab", "mongodb", "sql", "postgres", "sqlite", "visualization", "matplotlib", "d3.js", "gephi",
+ "matlab", "mongodb", "mongo", "sql", "postgres", "sqlite", "visualization", "matplotlib", "d3.js", "gephi",
  "graphlab", "non-linear", "optimization", "algorithms", "numerical", "ordinary", "partial", "differential",
  "equations", "sympy", "numpy", "sympy", "numpy", "machine", "learning", "sympy", "numpy", "machine", "learning", "unix", 
  "perl", "r", "math", "statistics", "phd", "masters", "ruby", "rails", "front", "end", "database", "web", "development", 
