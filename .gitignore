@@ -1,0 +1,7 @@
+data/fitted_model.pkl
+data/fitted_vectorizer.pkl
+data/vector_matrix.pkl
+data/SOpostings.csv
+*.ipynb
+fromzack.py
+*.pyc
